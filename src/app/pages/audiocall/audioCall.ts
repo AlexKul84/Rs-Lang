@@ -29,35 +29,39 @@ class AudioCall extends Component {
         this.currentChapter = i;
         this.currentPage = 0;
         this.currentPageIndex = 1;
+        // this.updatePagginator();
 
         this.getItemWord(`${URL.url}${URL.group}${this.currentChapter}${URL.page}${this.currentPage}`)
       }
     }
   }
 
-
   private getItemWord(url: string) {
     this.getWord(url).then((data) => {
-      console.log(data[5]);
 
-      const data1 = data[this.getRandomePage()]
-      const data2 = data
+      const dataTrue = data[this.getRandomeWord(0, 19)]
+      const dataFalse = data
       const voice = new Component(this.game.node, 'div', 'voice');
       voice.node.onclick = () => {
-        new Audio(`https://rss-lang-backends.herokuapp.com/${data1.audio}`).play();
+        new Audio(`https://rss-lang-backends.herokuapp.com/${dataTrue.audio}`).play();
       }
       const answer = new Component(this.game.node, 'div', 'answer');
       const wordsToGuess = new Component(this.game.node, 'ul', 'words-to-guess');
-      const word1 = new Component(wordsToGuess.node, 'li', 'word-to-guess', `${data1.wordTranslate}`);
-      const word2 = new Component(wordsToGuess.node, 'li', 'word-to-guess', `${data2[this.getRandomePage()].wordTranslate}`);
-      const word3 = new Component(wordsToGuess.node, 'li', 'word-to-guess', `${data2[this.getRandomePage()].wordTranslate}`);
-      const word4 = new Component(wordsToGuess.node, 'li', 'word-to-guess', `${data2[this.getRandomePage()].wordTranslate}`);
+      const word1 = new Component(wordsToGuess.node, 'li', 'word-to-guess', `${dataTrue.wordTranslate}`);
+      const word2 = new Component(wordsToGuess.node, 'li', 'word-to-guess', `${dataFalse[this.getRandomeWord(0, 19)].wordTranslate}`);
+      const word3 = new Component(wordsToGuess.node, 'li', 'word-to-guess', `${dataFalse[this.getRandomeWord(0, 19)].wordTranslate}`);
+      const word4 = new Component(wordsToGuess.node, 'li', 'word-to-guess', `${dataFalse[this.getRandomeWord(0, 19)].wordTranslate}`);
       const nextWord = new Component(this.game.node, 'button', 'next-word', 'Пропустить');
 
     })
   }
 
-  private getRandomePage = () => Math.round(0 - 0.5 + Math.random() * (29 - 0 + 1))
+  private updatePagginator() {
+    this.game.destroy();
+    this.game = new Component(this.game.node, 'div', 'game');
+  }
+
+  private getRandomeWord = (min: number, max: number) => Math.round(min - 0.5 + Math.random() * (max - min + 1))
 
 
   private async getWord(url: string) {
