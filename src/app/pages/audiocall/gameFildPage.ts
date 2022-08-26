@@ -7,14 +7,14 @@ interface IGameOptions {
   categoryIndex: number;
 }
 
-interface IGameResult {
-
-}
+type IGameResults = Array<boolean>
 
 class GameFildPage extends Component {
   onBack: () => void;
-  onFinish: (result: IGameResult) => void
+  onFinish: (result: IGameResults) => void
   progressIndicator: Component<HTMLElement>;
+  results: IGameResults;
+  answersIndicator: Component<HTMLElement>;
   constructor(parentNode: HTMLElement, gameOptions: IGameOptions) {
     super(parentNode);
     console.log(gameOptions);
@@ -24,15 +24,17 @@ class GameFildPage extends Component {
     backButton.node.onclick = () => this.onBack();
 
     this.progressIndicator = new Component(this.node, 'div', '', '')
+    this.answersIndicator = new Component(this.node, 'div', '', '')
 
-    const questions: Array<IQuestionData> = [{ answers: [1, 2, 3, 4] }, { answers: [1, 2, 3, 4] }, { answers: [1, 2, 3, 4] }]
-    // const question = new QuestionView(this.node, questions[0])
+    const questions: Array<IQuestionData> = [
+      { answers: [1, 2, 3, 4], correctAnswerIndex: 1 },
+      { answers: [1, 2, 3, 4], correctAnswerIndex: 2 },
+      { answers: [1, 2, 3, 4], correctAnswerIndex: 3 }
+    ]
+    this.results = []
     this.questionCycle(questions, 0, () => {
-      this.onFinish({});
+      this.onFinish(this.results);
     })
-
-    // const finishButton = new Component(this.node, 'button', '', 'finish')
-    // finishButton.node.onclick = () => this.onFinish({});
   }
 
   questionCycle(questions: Array<IQuestionData>, index: number, onFinish: () => void) {
@@ -41,13 +43,14 @@ class GameFildPage extends Component {
       return
     }
     this.progressIndicator.node.textContent = `${index + 1} / ${questions.length}`
+    this.answersIndicator.node.textContent = this.results.map((it) => it ? '+' : '-').join(' ')
 
     const question = new QuestionView(this.node, questions[index])
     question.onAnswer = answerIndex => {
       question.destroy()
+      this.results.push(answerIndex === questions[index].correctAnswerIndex)
       this.questionCycle(questions, index + 1, onFinish)
     }
-
   }
 }
 export default GameFildPage;

@@ -1,3 +1,4 @@
 export interface IQuestionData {
-  answers: Array<any>
+  answers: Array<any>;
+  correctAnswerIndex: number;
 }
