@@ -1,5 +1,4 @@
 import Component from "../../common/Component";
-import AuthModel from "../../app/pages/authorization/authModel";
 import Auth from "./authorization/Auth";
 import { URL } from '../../asset/utils/types';
 

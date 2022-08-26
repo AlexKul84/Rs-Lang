@@ -34,6 +34,10 @@
   transition: .5s;
 }
 
+.word-to-guess.active {
+  background-color: green;
+}
+
 .word-to-guess:hover {
   background-color: #bababa;
 }

@@ -1,6 +1,5 @@
 import Component from "../../../common/Component";
 import Footer from "../footer";
-import AuthModel from "./authModel";
 import { IUserData, URL } from '../../../asset/utils/types';
 import createElement from "./createElement";
 
@@ -34,7 +33,7 @@ class Auth {
     inputPassword.oninput = () => {
       this.inputsData.password = inputPassword.value;
     }
-    
+
     const buttonLogin = new Component(form.node, 'button', 'login', 'Log in');
     buttonLogin.node.setAttribute('type', 'button');
 
