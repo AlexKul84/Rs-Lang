@@ -114,6 +114,10 @@ button:hover {
   min-height: calc(100% - 165px);
 }
 
+.wrapper-main button {
+  color: #000000;
+}
+
 .main .wrapper {
   max-width: 1440px;
   margin: 0 auto;
