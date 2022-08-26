@@ -3,9 +3,11 @@ import QuestionView from "./questionView";
 import { IQuestionData } from "./IQuestionData";
 
 
-interface IGameOptions {
-  categoryIndex: number;
-}
+// interface IGameOptions {
+//   categoryIndex: number;
+// }
+
+type categoryIndex = number
 
 type IGameResults = Array<boolean>
 
@@ -15,10 +17,10 @@ class GameFildPage extends Component {
   progressIndicator: Component<HTMLElement>;
   results: IGameResults;
   answersIndicator: Component<HTMLElement>;
-  constructor(parentNode: HTMLElement, gameOptions: IGameOptions) {
+  constructor(parentNode: HTMLElement, categoryIndex: number) {
     super(parentNode);
-    console.log(gameOptions);
-    const header = new Component(this.node, 'h1', '', `${gameOptions.categoryIndex + 1}`)
+    console.log(categoryIndex);
+    const header = new Component(this.node, 'h1', '', `${categoryIndex + 1}`)
 
     const backButton = new Component(this.node, 'button', '', 'back')
     backButton.node.onclick = () => this.onBack();

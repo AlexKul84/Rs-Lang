@@ -9,33 +9,37 @@ import StartPage from "./startPage";
 class AudioCall extends Component {
   constructor(parentNode: HTMLElement) {
     super(parentNode, 'div', 'audio-call');
-
-    this.getWord(`${URL.url}${URL.group}${1}${URL.page}${1}`).then(data => {
-      console.log(data)
-      this.mainCycle()
-    })
+    this.mainCycle()
   }
 
   private gameCycle(categoryIndex: number) {
-    const gameFild = new GameFildPage(this.node, { categoryIndex: categoryIndex })
-    gameFild.onBack = () => {
-      gameFild.destroy()
-      this.mainCycle()
-    }
-    gameFild.onFinish = (result) => {
-      gameFild.destroy()
-      const gameOverPage = new GameOverPage(this.node, result)
 
-      gameOverPage.onCategories = () => {
-        gameOverPage.destroy()
+    this.getWord(`${URL.url}${URL.group}${categoryIndex}${URL.page}${this.getRandome(0, 29)}`).then(data => {
+
+      console.log(data)
+
+      const gameFild = new GameFildPage(this.node, categoryIndex)
+
+      gameFild.onBack = () => {
+        gameFild.destroy()
         this.mainCycle()
       }
 
-      gameOverPage.onNext = () => {
-        gameOverPage.destroy()
-        this.gameCycle(categoryIndex + 1)
+      gameFild.onFinish = (result) => {
+        gameFild.destroy()
+        const gameOverPage = new GameOverPage(this.node, result)
+
+        gameOverPage.onCategories = () => {
+          gameOverPage.destroy()
+          this.mainCycle()
+        }
+
+        gameOverPage.onNext = () => {
+          gameOverPage.destroy()
+          this.gameCycle(categoryIndex + 1)
+        }
       }
-    }
+    })
   }
 
   private mainCycle() {
@@ -50,6 +54,8 @@ class AudioCall extends Component {
     const resp = await fetch(url);
     return resp.json();
   }
+
+  private getRandome = (min: number, max: number) => Math.round(min - 0.5 + Math.random() * (max - min + 1))
 
 }
 export default AudioCall;
