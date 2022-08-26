@@ -2,12 +2,18 @@ import Component from "../../../common/Component";
 import CategoriesPage from "./categoriesPage";
 import GameFildPage from "./gameFildPage";
 import GameOverPage from "./gameOverPage";
+import { DataModel } from "./dataModel";
+import { URL } from '../../../asset/utils/types'
 import StartPage from "./startPage";
 
 class AudioCall extends Component {
   constructor(parentNode: HTMLElement) {
     super(parentNode, 'div', 'audio-call');
-    this.mainCycle()
+
+    this.getWord(`${URL.url}${URL.group}${1}${URL.page}${1}`).then(data => {
+      console.log(data)
+      this.mainCycle()
+    })
   }
 
   private gameCycle(categoryIndex: number) {
@@ -38,6 +44,11 @@ class AudioCall extends Component {
       categories.destroy()
       this.gameCycle(index)
     }
+  }
+
+  private async getWord(url: string) {
+    const resp = await fetch(url);
+    return resp.json();
   }
 
 }
