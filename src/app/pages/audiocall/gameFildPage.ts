@@ -1,11 +1,6 @@
 import Component from "../../../common/Component";
 import QuestionView from "./questionView";
-// import { IQuestionData } from "./IQuestionData";
-import { DataModel, IQuestionData } from "./dataModel";
-import { URL } from '../../../asset/utils/types'
-
-
-type categoryIndex = number
+import { IQuestionData } from "./dataModel";
 
 type IGameResults = Array<boolean>
 
@@ -26,11 +21,6 @@ class GameFildPage extends Component {
     this.progressIndicator = new Component(this.node, 'div', '', '')
     this.answersIndicator = new Component(this.node, 'div', '', '')
 
-    // const questions: Array<IQuestionData> = [
-    //   { answers: ['1', '2', '3', '4'], correctAnswerIndex: 1, voiceUrl: 'url' },
-    //   { answers: ['1', '2', '3', '4'], correctAnswerIndex: 2, voiceUrl: 'url' },
-    //   { answers: ['1', '2', '3', '4'], correctAnswerIndex: 3, voiceUrl: 'url' }
-    // ]
     this.results = []
     this.questionCycle(questionsData, 0, () => {
       this.onFinish(this.results);

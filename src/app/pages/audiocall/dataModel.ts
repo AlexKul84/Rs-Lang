@@ -1,5 +1,4 @@
 import { IWordsData } from '../../../asset/utils/types'
-import { URL } from '../../../asset/utils/types'
 
 export interface IQuestionData {
   answers: string[];
@@ -10,11 +9,11 @@ export interface IQuestionData {
 export class DataModel {
   data: Array<IWordsData>
   constructor() {
-
+    this.data
   }
 
-  public getQuestions(categoryIndex: number) {
-    const result: IQuestionData = []
+  public getQuestions() {
+    const result: IQuestionData[] = []
     for (let i = 0; i < 10; i++) {
       const answers: Array<string> = []
       const answersCount = 4

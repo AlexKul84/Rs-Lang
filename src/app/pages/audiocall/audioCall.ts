@@ -10,20 +10,15 @@ class AudioCall extends Component {
   categoryIndex: number;
   constructor(parentNode: HTMLElement) {
     super(parentNode, 'div', 'audio-call');
-
     this.mainCycle()
-
   }
 
   private gameCycle(categoryIndex: number) {
-
     this.model = new DataModel()
-
     this.model.build(`${URL.url}${URL.group}${categoryIndex}${URL.page}${this.getRandome(0, 29)}`).then(res => {
-
       console.log(res);
 
-      const gameFild = new GameFildPage(this.node, categoryIndex, this.model.getQuestions(categoryIndex))
+      const gameFild = new GameFildPage(this.node, categoryIndex, this.model.getQuestions())
 
       gameFild.onBack = () => {
         gameFild.destroy()
@@ -39,10 +34,10 @@ class AudioCall extends Component {
           this.mainCycle()
         }
 
-        gameOverPage.onNext = () => {
-          gameOverPage.destroy()
-          this.gameCycle(categoryIndex + 1)
-        }
+        // gameOverPage.onNext = () => {
+        //   gameOverPage.destroy()
+        //   this.gameCycle(categoryIndex + 1)
+        // }
       }
     })
   }
