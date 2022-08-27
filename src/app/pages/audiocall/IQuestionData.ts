@@ -1,4 +1,5 @@
 export interface IQuestionData {
-  answers: Array<any>;
+  answers: string[];
   correctAnswerIndex: number;
+  voiceUrl: string
 }

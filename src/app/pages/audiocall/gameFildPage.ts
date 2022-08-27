@@ -1,11 +1,9 @@
 import Component from "../../../common/Component";
 import QuestionView from "./questionView";
-import { IQuestionData } from "./IQuestionData";
+// import { IQuestionData } from "./IQuestionData";
+import { DataModel, IQuestionData } from "./dataModel";
+import { URL } from '../../../asset/utils/types'
 
-
-// interface IGameOptions {
-//   categoryIndex: number;
-// }
 
 type categoryIndex = number
 
@@ -17,9 +15,9 @@ class GameFildPage extends Component {
   progressIndicator: Component<HTMLElement>;
   results: IGameResults;
   answersIndicator: Component<HTMLElement>;
-  constructor(parentNode: HTMLElement, categoryIndex: number) {
+
+  constructor(parentNode: HTMLElement, categoryIndex: number, questionsData: Array<IQuestionData>) {
     super(parentNode);
-    console.log(categoryIndex);
     const header = new Component(this.node, 'h1', '', `${categoryIndex + 1}`)
 
     const backButton = new Component(this.node, 'button', '', 'back')
@@ -28,18 +26,18 @@ class GameFildPage extends Component {
     this.progressIndicator = new Component(this.node, 'div', '', '')
     this.answersIndicator = new Component(this.node, 'div', '', '')
 
-    const questions: Array<IQuestionData> = [
-      { answers: [1, 2, 3, 4], correctAnswerIndex: 1 },
-      { answers: [1, 2, 3, 4], correctAnswerIndex: 2 },
-      { answers: [1, 2, 3, 4], correctAnswerIndex: 3 }
-    ]
+    // const questions: Array<IQuestionData> = [
+    //   { answers: ['1', '2', '3', '4'], correctAnswerIndex: 1, voiceUrl: 'url' },
+    //   { answers: ['1', '2', '3', '4'], correctAnswerIndex: 2, voiceUrl: 'url' },
+    //   { answers: ['1', '2', '3', '4'], correctAnswerIndex: 3, voiceUrl: 'url' }
+    // ]
     this.results = []
-    this.questionCycle(questions, 0, () => {
+    this.questionCycle(questionsData, 0, () => {
       this.onFinish(this.results);
     })
   }
 
-  questionCycle(questions: Array<IQuestionData>, index: number, onFinish: () => void) {
+  questionCycle(questions: Array<IQuestionData>, index: number, onFinish: () => void) { //questions: Array<any>
     if (index >= questions.length) {
       onFinish()
       return

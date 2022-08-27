@@ -4,21 +4,26 @@ import GameFildPage from "./gameFildPage";
 import GameOverPage from "./gameOverPage";
 import { DataModel } from "./dataModel";
 import { URL } from '../../../asset/utils/types'
-import StartPage from "./startPage";
 
 class AudioCall extends Component {
+  model: DataModel;
+  categoryIndex: number;
   constructor(parentNode: HTMLElement) {
     super(parentNode, 'div', 'audio-call');
+
     this.mainCycle()
+
   }
 
   private gameCycle(categoryIndex: number) {
 
-    this.getWord(`${URL.url}${URL.group}${categoryIndex}${URL.page}${this.getRandome(0, 29)}`).then(data => {
+    this.model = new DataModel()
 
-      console.log(data)
+    this.model.build(`${URL.url}${URL.group}${categoryIndex}${URL.page}${this.getRandome(0, 29)}`).then(res => {
 
-      const gameFild = new GameFildPage(this.node, categoryIndex)
+      console.log(res);
+
+      const gameFild = new GameFildPage(this.node, categoryIndex, this.model.getQuestions(categoryIndex))
 
       gameFild.onBack = () => {
         gameFild.destroy()
