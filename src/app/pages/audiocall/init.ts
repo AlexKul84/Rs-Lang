@@ -46,9 +46,6 @@ class AudioCall extends Component {
       const dataFalse = data
       const word2 = new Component(this.wordsToGuess.node, 'li', 'word-to-guess', `${dataFalse[this.getRandome(0, 19)].wordTranslate}`);
 
-      console.log(this.wordsToGuess.node.childNodes.length);
-      console.log(this.wordsToGuess.node.childNodes[1]);
-
     })
 
     const chapters = new Component(this.node, 'div', 'chapters')

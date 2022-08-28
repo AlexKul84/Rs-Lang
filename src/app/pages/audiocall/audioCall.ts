@@ -15,8 +15,12 @@ class AudioCall extends Component {
 
   private gameCycle(categoryIndex: number) {
     this.model = new DataModel()
-    this.model.build(`${URL.url}${URL.group}${categoryIndex}${URL.page}${this.getRandome(0, 29)}`).then(res => {
-      console.log(res);
+    this.model.build(
+      `${URL.url}${URL.group}${categoryIndex}${URL.page}${this.getRandome(0, 29)}`,
+      `${URL.url}${URL.group}${categoryIndex}${URL.page}${this.getRandome(0, 29)}`,
+      `${URL.url}${URL.group}${categoryIndex}${URL.page}${this.getRandome(0, 29)}`,
+      `${URL.url}${URL.group}${categoryIndex}${URL.page}${this.getRandome(0, 29)}`,
+    ).then(res => {
 
       const gameFild = new GameFildPage(this.node, categoryIndex, this.model.getQuestions())
 

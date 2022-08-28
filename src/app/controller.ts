@@ -38,23 +38,23 @@ class Controller extends Component {
     }
     this.header.textBookBtn.node.onclick = () => {
       location.hash = this.header.textBookBtn.node.id;
-      console.log(this.textbook.itemButtons.node);
+      // console.log(this.textbook.itemButtons.node);
       this.textbook.itemButtons.node.classList.remove('hidden');
 
     }
-   
+
     this.header.audioCallBtn.node.onclick = () => {
       location.hash = this.header.audioCallBtn.node.id;
     }
-    
+
     this.header.sprintBtn.node.onclick = () => {
       location.hash = this.header.sprintBtn.node.id;
     }
-    
+
     this.header.statisticBtn.node.onclick = () => {
       location.hash = this.header.statisticBtn.node.id;
     }
-    
+
     this.header.authorizationBtn.node.onclick = () => {
       location.hash = this.header.authorizationBtn.node.id;
     }
@@ -94,7 +94,7 @@ class Controller extends Component {
             window.localStorage.setItem('usersId', `${resp.userId}`);
             setTimeout(() => {
               window.localStorage.removeItem('token');
-            }, 14400000) 
+            }, 14400000)
           })
           .catch(() => {
             const message = new Component(authElem, 'span', 'message', 'Неверный пароль.');

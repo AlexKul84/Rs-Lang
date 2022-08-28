@@ -93,10 +93,10 @@ class Auth {
           authBtn.node.style.display = 'none';
           authUser = new Component(parent.node, 'button', 'navigation-menu__item', `${data.email}`);
           if (location.hash === '#textbook') {
-            console.log('test');
+            // console.log('test');
             authUser.node.classList.add('hidden');
           } else {
-            console.log('test1');
+            // console.log('test1');
             authUser.node.classList.remove('hidden');
           }
           authUser.node.onclick = () => {
