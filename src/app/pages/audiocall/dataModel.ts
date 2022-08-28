@@ -20,11 +20,15 @@ export class DataModel {
       const correctAnswerIndex = Math.floor(Math.random() * answersCount)
       const correctAnswer = this.data[i].wordTranslate
       for (let j = 0; j < answersCount; j++) {
+
         if (correctAnswerIndex == j) {
           answers.push(correctAnswer)
         } else {
           const variantWord = this.data[Math.floor(Math.random() * this.data.length)].wordTranslate
-          answers.push(variantWord)
+          console.log(variantWord);
+          if (!answers.includes(variantWord)) {
+            answers.push(variantWord)
+          }
         }
       }
       const question: IQuestionData = {
