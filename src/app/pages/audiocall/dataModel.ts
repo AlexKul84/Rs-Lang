@@ -29,7 +29,6 @@ export class DataModel {
       const correctAnswer = this.data[i].wordTranslate
       const answer1 = this.data1[i].wordTranslate
       const answer2 = this.data2[i].wordTranslate
-      const answer3 = this.data3[i].wordTranslate
 
       for (let j = 0; j < answersCount; j++) {
 
@@ -53,11 +52,10 @@ export class DataModel {
     return result
   }
 
-  public async build(url: string, url1: string, url2: string, url3: string) {
+  public async build(url: string, url1: string, url2: string) {
     this.data = await this.getWord(url)
     this.data1 = await this.getWord(url1)
     this.data2 = await this.getWord(url2)
-    this.data3 = await this.getWord(url3)
     return this
   }
 

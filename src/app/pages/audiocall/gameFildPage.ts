@@ -2,7 +2,10 @@ import Component from "../../../common/Component";
 import QuestionView from "./questionView";
 import { IQuestionData } from "./dataModel";
 
-type IGameResults = Array<boolean>
+type IGameResults = {
+  rightAnswer: string;
+  userAnswer: string
+}[]
 
 class GameFildPage extends Component {
   onBack: () => void;
@@ -23,22 +26,33 @@ class GameFildPage extends Component {
 
     this.results = []
     this.questionCycle(questionsData, 0, () => {
+      console.log(this.results);
+
       this.onFinish(this.results);
     })
   }
 
-  questionCycle(questions: Array<IQuestionData>, index: number, onFinish: () => void) { //questions: Array<any>
+  questionCycle(questions: Array<IQuestionData>, index: number, onFinish: () => void) {
     if (index >= questions.length) {
       onFinish()
       return
     }
     this.progressIndicator.node.textContent = `${index + 1} / ${questions.length}`
-    this.answersIndicator.node.textContent = this.results.map((it) => it ? '+' : '-').join(' ')
+    this.answersIndicator.node.textContent = this.results.map((it) => {
+      console.log(it);
+
+      return it.rightAnswer === it.userAnswer ? '+' : '-'
+    }).join(' ')
 
     const question = new QuestionView(this.node, questions[index])
     question.onAnswer = answerIndex => {
       question.destroy()
-      this.results.push(answerIndex === questions[index].correctAnswerIndex)
+      console.log(questions);
+
+      this.results.push({
+        rightAnswer: questions[index].answers[questions[index].correctAnswerIndex],
+        userAnswer: questions[index].answers[answerIndex]
+      })
       this.questionCycle(questions, index + 1, onFinish)
     }
   }

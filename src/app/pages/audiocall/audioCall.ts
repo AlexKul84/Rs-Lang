@@ -18,8 +18,7 @@ class AudioCall extends Component {
     this.model.build(
       `${URL.url}${URL.group}${categoryIndex}${URL.page}${this.getRandome(0, 29)}`,
       `${URL.url}${URL.group}${categoryIndex}${URL.page}${this.getRandome(0, 29)}`,
-      `${URL.url}${URL.group}${categoryIndex}${URL.page}${this.getRandome(0, 29)}`,
-      `${URL.url}${URL.group}${categoryIndex}${URL.page}${this.getRandome(0, 29)}`,
+      `${URL.url}${URL.group}${categoryIndex}${URL.page}${this.getRandome(0, 29)}`
     ).then(res => {
 
       const gameFild = new GameFildPage(this.node, categoryIndex, this.model.getQuestions())
