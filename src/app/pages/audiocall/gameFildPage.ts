@@ -26,7 +26,7 @@ class GameFildPage extends Component {
 
     this.results = []
     this.questionCycle(questionsData, 0, () => {
-      console.log(this.results);
+      // console.log(this.results);
 
       this.onFinish(this.results);
     })
@@ -39,8 +39,6 @@ class GameFildPage extends Component {
     }
     this.progressIndicator.node.textContent = `${index + 1} / ${questions.length}`
     this.answersIndicator.node.textContent = this.results.map((it) => {
-      console.log(it);
-
       return it.rightAnswer.translate === it.userAnswer.translate ? '+' : '-'
     }).join(' ')
 

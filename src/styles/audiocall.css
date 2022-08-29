@@ -54,3 +54,11 @@
 .next-word:hover {
   box-shadow: none;
 }
+
+.rightAnswer {
+  background-color: green;
+}
+
+.falseAnswer {
+  background-color: red;
+}

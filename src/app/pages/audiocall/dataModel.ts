@@ -23,7 +23,7 @@ export class DataModel {
 
   public getQuestions() {
     const result: IQuestionData[] = []
-    console.log(this.data);
+    // console.log(this.data);
     // console.log(this.data1);
     // console.log(this.data2);
     // console.log(this.data3);
