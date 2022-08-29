@@ -1,9 +1,15 @@
 import { IWordsData } from '../../../asset/utils/types'
 
 export interface IQuestionData {
-  answers: string[];
+  answers: Ianswers[];
   correctAnswerIndex: number;
   voiceUrl: string;
+}
+
+export interface Ianswers {
+  word: string;
+  translate: string;
+  voice: string;
 }
 
 export class DataModel {
@@ -23,25 +29,49 @@ export class DataModel {
     // console.log(this.data3);
 
     for (let i = 0; i < 10; i++) {
-      const answers: Array<string> = []
+      const answers: Array<Ianswers> = []
       const answersCount = 4
       const correctAnswerIndex = Math.floor(Math.random() * answersCount)
-      const correctAnswer = this.data[i].wordTranslate
-      const answer1 = this.data1[i].wordTranslate
-      const answer2 = this.data2[i].wordTranslate
+      const correctAnswer = {
+        word: this.data[i].word,
+        translate: this.data[i].wordTranslate,
+        voice: this.data[i].audio
+      }
+      const answer1 = {
+        word: this.data1[i].word,
+        translate: this.data1[i].wordTranslate,
+        voice: this.data1[i].audio
+      }
+      const answer2 = {
+        word: this.data2[i].word,
+        translate: this.data2[i].wordTranslate,
+        voice: this.data2[i].audio
+      }
 
       for (let j = 0; j < answersCount; j++) {
 
         if (correctAnswerIndex == j) {
           answers.push(correctAnswer)
         } else {
-          const variantWord = this.data1[Math.floor(Math.random() * this.data1.length)].wordTranslate
-          if (!answers.includes(variantWord)) {
-            answers.push(variantWord)
+          const variantWord1 = this.data1[Math.floor(Math.random() * this.data1.length)]
+          const variantWord = {
+            word: variantWord1.word,
+            translate: variantWord1.wordTranslate,
+            voice: variantWord1.audio
           }
+          // if (!answers[i].translate.includes(variantWord.translate)) {
+          answers.push(variantWord)
+          // }
         }
       }
-      if (answers.length < 4) answers.push(this.data2[Math.floor(Math.random() * this.data2.length)].wordTranslate)
+      const variantWord2 = this.data2[Math.floor(Math.random() * this.data2.length)]
+      const variantWord3 = {
+        word: variantWord2.word,
+        translate: variantWord2.wordTranslate,
+        voice: variantWord2.audio
+      }
+
+      if (answers.length < 4) answers.push(variantWord3)
       const question: IQuestionData = {
         voiceUrl: this.data[i].audio,
         answers: answers,

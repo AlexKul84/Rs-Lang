@@ -1,10 +1,10 @@
 import Component from "../../../common/Component";
 import QuestionView from "./questionView";
-import { IQuestionData } from "./dataModel";
+import { IQuestionData, Ianswers } from "./dataModel";
 
 type IGameResults = {
-  rightAnswer: string;
-  userAnswer: string
+  rightAnswer: Ianswers;
+  userAnswer: Ianswers
 }[]
 
 class GameFildPage extends Component {
@@ -41,17 +41,25 @@ class GameFildPage extends Component {
     this.answersIndicator.node.textContent = this.results.map((it) => {
       console.log(it);
 
-      return it.rightAnswer === it.userAnswer ? '+' : '-'
+      return it.rightAnswer.translate === it.userAnswer.translate ? '+' : '-'
     }).join(' ')
 
     const question = new QuestionView(this.node, questions[index])
     question.onAnswer = answerIndex => {
       question.destroy()
-      console.log(questions);
+      // console.log(questions);
 
       this.results.push({
-        rightAnswer: questions[index].answers[questions[index].correctAnswerIndex],
-        userAnswer: questions[index].answers[answerIndex]
+        rightAnswer: {
+          word: questions[index].answers[questions[index].correctAnswerIndex].word,
+          translate: questions[index].answers[questions[index].correctAnswerIndex].translate,
+          voice: questions[index].answers[questions[index].correctAnswerIndex].voice
+        },
+        userAnswer: {
+          word: questions[index].answers[answerIndex].word,
+          translate: questions[index].answers[answerIndex].translate,
+          voice: questions[index].answers[answerIndex].voice
+        }
       })
       this.questionCycle(questions, index + 1, onFinish)
     }

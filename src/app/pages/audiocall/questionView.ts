@@ -17,7 +17,7 @@ class QuestionView extends Component {
     question.node.append(voice)
 
     const answerButtons = questionData.answers.map((it, i) => {
-      const categoriesButton = new Component(this.node, 'button', '', it)
+      const categoriesButton = new Component(this.node, 'button', '', it.translate)
       categoriesButton.node.onclick = () => this.onAnswer(i)
     })
   }
