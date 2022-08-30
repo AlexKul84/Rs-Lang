@@ -1,7 +1,6 @@
 import Component from "../../../common/Component";
 import Footer from "../footer";
 import { IUserData, URL } from '../../../asset/utils/types';
-import createElement from "./createElement";
 
 
 class Auth {
@@ -10,8 +9,8 @@ class Auth {
   inputsData: IUserData;
 
   render(parentNode: HTMLElement) {
-    const auth = createElement(parentNode, 'div', 'authorization');
-    const form = new Component(auth, 'form', 'form');
+    const auth = new Component(parentNode, 'div', 'authorization');
+    const form = new Component(auth.node, 'form', 'form');
     const title = new Component(form.node, 'h3', 'title', 'Bведите адрес электронной почты и пароль');
     const inputEmail = document.createElement('input');
     inputEmail.className = 'input';
@@ -56,14 +55,14 @@ class Auth {
         setTimeout(() => message.destroy(), 5000);
       }
 
-      this.addOrGetUser(data, 'https://rss-lang-backends.herokuapp.com/users');
+      this.addOrGetUser(data, `${URL.shortUrl}${URL.login}`);
     };
 
     buttonSignin.node.onclick = () => {
       this.onSignin(this.inputsData);
     };
 
-    return auth;
+    return auth.node;
   }
 
   async addOrGetUser(data: IUserData, url: string) {
@@ -78,9 +77,9 @@ class Auth {
     return resp;
   }
 
-  checkUser(authBtn: Component<HTMLElement>, authUser: Component<HTMLElement>, parent: Component<HTMLElement>) {
+  checkUser(authBtn: Component<HTMLElement>, authUser: Component<HTMLElement>) {
     if (window.localStorage.getItem('token')) {
-      const resp = fetch(`https://rss-lang-backends.herokuapp.com/users/${window.localStorage.getItem('usersId')}`, {
+      const resp = fetch(`${URL.shortUrl}${URL.login}/${window.localStorage.getItem('usersId')}`, {
         headers: {
           'Authorization': `Bearer ${window.localStorage.getItem('token')}`,
           'Accept': 'application/json',
@@ -90,22 +89,22 @@ class Auth {
       resp.then((data) => data.json())
         .then((data) => data)
         .then((data) => {
-          authBtn.node.style.display = 'none';
-          authUser = new Component(parent.node, 'button', 'navigation-menu__item', `${data.email}`);
+          authBtn.node.classList.add('hidden');
+          authUser.node.textContent = `${data.email}`;
           if (location.hash === '#textbook') {
-            console.log('test');
             authUser.node.classList.add('hidden');
           } else {
-            console.log('test1');
             authUser.node.classList.remove('hidden');
           }
           authUser.node.onclick = () => {
-            authUser.destroy();
-            authBtn.node.style.display = 'block';
+            authUser.node.textContent = '';
+            authUser.node.classList.add('hidden');
+            authBtn.node.classList.remove('hidden');
             window.localStorage.removeItem('usersId');
             window.localStorage.removeItem('token');
           }
-        });
+        })
+        .catch(() => console.log('Вы не зарегистрированы'));
     }
   }
 }

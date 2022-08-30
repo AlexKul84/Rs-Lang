@@ -37,6 +37,14 @@ class Header extends Component {
     this.btnsWrap = new Component(wrapper.node, 'div', 'auth');
     this.authorizationBtn = new Component(this.btnsWrap.node, 'button', 'navigation-menu__item', 'Bход | Регистрация');
     this.authorizationBtn.node.setAttribute('id', 'authorization');
+
+    this.authUser = new Component(this.btnsWrap.node, 'button', 'navigation-menu__item');
+    this.authUser.node.classList.add('hidden');
+  }
+
+  updateAuth() {
+    localStorage.getItem('token') ? this.authUser.node.classList.remove('hidden')
+    : this.authUser.node.classList.add('hidden');
   }
 }
 
