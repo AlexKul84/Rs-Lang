@@ -13,21 +13,23 @@ class GameFildPage extends Component {
   progressIndicator: Component<HTMLElement>;
   results: IGameResults;
   answersIndicator: Component<HTMLElement>;
+  game: Component<HTMLElement>;
 
   constructor(parentNode: HTMLElement, categoryIndex: number, questionsData: Array<IQuestionData>) {
     super(parentNode);
-    const header = new Component(this.node, 'h1', '', `${categoryIndex + 1}`)
 
-    const backButton = new Component(this.node, 'button', '', 'back')
+    this.game = new Component(this.node, 'div', 'game');
+
+    const header = new Component(this.game.node, 'h2', 'heading', `Сложность игры ${categoryIndex + 1}`)
+
+    const backButton = new Component(this.node, 'button', 'category-button', 'К выбору категории')
     backButton.node.onclick = () => this.onBack();
 
-    this.progressIndicator = new Component(this.node, 'div', '', '')
-    this.answersIndicator = new Component(this.node, 'div', '', '')
+    this.progressIndicator = new Component(this.game.node, 'p', 'progress-indicator', '')
+    this.answersIndicator = new Component(this.game.node, 'div', 'answers-indicator', '')
 
     this.results = []
     this.questionCycle(questionsData, 0, () => {
-      // console.log(this.results);
-
       this.onFinish(this.results);
     })
   }
@@ -37,15 +39,14 @@ class GameFildPage extends Component {
       onFinish()
       return
     }
-    this.progressIndicator.node.textContent = `${index + 1} / ${questions.length}`
-    this.answersIndicator.node.textContent = this.results.map((it) => {
-      return it.rightAnswer.translate === it.userAnswer.translate ? '+' : '-'
+    this.progressIndicator.node.textContent = `${index + 1} слово из ${questions.length}`
+    this.answersIndicator.node.innerHTML = this.results.map((it) => {
+      return it.rightAnswer.translate === it.userAnswer.translate ? `<span class="right-answer"></span>` : `<span class="false-answer"></span>`
     }).join(' ')
 
     const question = new QuestionView(this.node, questions[index])
     question.onAnswer = answerIndex => {
       question.destroy()
-      // console.log(questions);
 
       this.results.push({
         rightAnswer: {

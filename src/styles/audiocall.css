@@ -2,20 +2,21 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 5vh;
-  margin-top: 10vh;
-  margin-bottom: 10vh;
+  gap: 1vh;
+  margin-top: 7vh;
+  margin-bottom: 3vh;
 }
 
 .voice {
-  width: 100px;
-  height: 100px;
+  width: 50px;
+  height: 50px;
   background-image: url(../asset/Speaker_Icon.svg);
   background-size: contain;
   background-repeat: no-repeat;
   filter: invert(30%) sepia(20%) saturate(13%) hue-rotate(14deg) brightness(97%) contrast(88%);
   cursor: pointer;
   transition: .5s;
+  margin-bottom: 12vh;
 }
 
 .voice:hover {
@@ -61,4 +62,62 @@
 
 .falseAnswer {
   background-color: red;
+}
+
+.category-button {
+  position: absolute;
+  top: 80px;
+  right: 10px;
+  background-color: transparent;
+  border: 1px solid black;
+  font-weight: bold;
+  transition: .5s;
+}
+
+.category-button:hover {
+  background-color: #6b6b6b;
+  color: white;
+}
+
+.progress-indicator {
+  margin: 0 auto;
+}
+
+.answers-indicator {
+  height: 10px;
+}
+
+.right-answer {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  background-image: url("../asset/right-answer.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+.false-answer {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  background-image: url("../asset/false-answer.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+.answers-buttons {
+  display: flex;
+  gap: 10px;
+}
+
+.answer-button {
+  background-color: transparent;
+  border: 1px solid black;
+  font-weight: bold;
+  transition: .5s;
+}
+
+.answer-button:hover {
+  background-color: #6b6b6b;
+  color: white;
 }
